@@ -1,19 +1,25 @@
 defmodule DayOne do
   @moduledoc false
 
-  @spec get_fuel_req_sum :: pos_integer
-  def get_fuel_req_sum do
+  def part1 do
+    "one"
+    |> read()
+    |> Stream.map(&get_fuel_req_sum/1)
+    |> Enum.sum()
+  end
+
+  def part2 do
+    "one"
+    |> read()
+  end
+
+  def read(day) do
     File.cwd!()
-    |> Path.join("misc/day_one.txt")
+    |> Path.join("misc/day_#{day}.txt")
     |> File.read!()
     |> String.split("\r\n")
-    |> Enum.map(&String.to_integer(&1))
-    |> Enum.reduce(0, fn x, acc ->
-      x
-      |> div(3)
-      |> floor()
-      |> Kernel.-(2)
-      |> Kernel.+(acc)
-    end)
+    |> Stream.map(&String.to_integer(&1))
   end
+
+  def get_fuel_req_sum(mass), do: div(mass, 3) - 2
 end
